@@ -154,6 +154,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
                             {
                                 Console.WriteLine("fin qui tutto bene");
                                 await Populate_UserRoles_table(user, conn);
+                                await Popolate_User_Claims_table(user, conn);
                                 return await Task.FromResult(IdentityResult.Success);
                             }
 
@@ -235,6 +236,105 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
                 return false;
             }
         }
+
+        // quando un utente viene creato specificare che tipo di permessi possiede (id (PK) , userid , claimtype
+        // ogni volta che registro un utente "standard" dalla pagina di registrazione questo avraà claimtype "role" value "user"
+        //type "permission" value "basic" (ha accesso a funzionalità base)
+        private async Task<bool> Popolate_User_Claims_table(IdentityUser user, OracleConnection conn)
+        {
+            try
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    for (var i = 0; i < 2; i++)
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "POPULATE_ASPNETUSERCLAIMS";
+
+                        command.Parameters.Add("user_id_param", OracleDbType.NVarchar2).Value = user.Id;
+
+                        if (i == 0)
+                        {
+                            //PARAMETRI INPUT
+                            command.Parameters.Add("claim_type_param", OracleDbType.NVarchar2).Value = "role";
+                            command.Parameters.Add("claim_value_param", OracleDbType.NVarchar2).Value = "user";
+
+                            var righe_inserite = new OracleParameter("righe_inserite", OracleDbType.Int32)
+                            {
+                                Direction = ParameterDirection.Output
+                            };
+
+                            command.Parameters.Add(righe_inserite);
+
+                            await command.ExecuteNonQueryAsync();
+                            if (righe_inserite.Value != DBNull.Value)
+                            {
+
+                                int RigheInserite = ((OracleDecimal)righe_inserite.Value).ToInt32();
+
+                                if (RigheInserite == 1)
+                                {
+                                    Console.WriteLine("primo record userclaims popolato correttamente.");
+                                    continue;
+                                }
+
+                                if (RigheInserite == 0)
+                                {
+                                    throw new Exception("CICLO 2 -- Errore durante il popolamento della tabella ASP NET USER CLAIMS");
+
+                                }
+
+
+                            }
+                        }
+
+                        if (i == 1)
+                        {
+
+                            command.Parameters.Add("claim_type_param", OracleDbType.NVarchar2).Value = "permission";
+                            command.Parameters.Add("claim_value_param", OracleDbType.NVarchar2).Value = "basic";
+                            var righe_inserite = new OracleParameter("righe_inserite", OracleDbType.Int32)
+                            {
+                                Direction = ParameterDirection.Output
+                            };
+
+                            command.Parameters.Add(righe_inserite);
+
+                            await command.ExecuteNonQueryAsync();
+                            if (righe_inserite.Value != DBNull.Value)
+                            {
+
+                                int RigheInserite = ((OracleDecimal)righe_inserite.Value).ToInt32();
+
+                                if (RigheInserite == 1)
+                                {
+                                    Console.WriteLine("secondo record userclaims popolato correttamente.");
+                                    continue;
+                                }
+
+                                if (RigheInserite == 0)
+                                {
+                                    throw new Exception("CICLO 2 -- Errore durante il popolamento della tabella ASP NET USER CLAIMS");
+
+                                }
+
+
+                            }
+
+                        }
+                    }
+
+                    Console.WriteLine("tabella aspnetUserClaims correttamente popolata");
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore durante il popolamento della tabella ASPNETUSERCLAIMS : {ex.Message}");
+                return false;
+            }
+        }
+
 
         public Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
         {
