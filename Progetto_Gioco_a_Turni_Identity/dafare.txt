@@ -4,6 +4,8 @@
 
 3- aspnetuserroles popolare tabella molti-molti 
 
+4- impostare lo using anziche open e close collection 
+
 4- metodi per il login ? autenticazione ? 
 
 5- una volta finito di popolare le tabelle, scrivere un servizio
