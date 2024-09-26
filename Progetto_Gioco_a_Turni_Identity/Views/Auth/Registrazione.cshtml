@@ -1,0 +1,47 @@
+﻿
+
+@model RegisterModel
+
+<h2>Registrazione</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <section class="mt-3">
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["error"]
+                </div>
+            }
+
+        </section>
+        <section>
+            <form asp-controller="Auth" asp-action="RegisterUser" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cellulare"></label>
+                    <input asp-for="Cellulare" class="form-control" />
+                    <span asp-validation-for="Cellulare" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Register</button>
+            </form>
+        </section>
+    </div>
+</div>

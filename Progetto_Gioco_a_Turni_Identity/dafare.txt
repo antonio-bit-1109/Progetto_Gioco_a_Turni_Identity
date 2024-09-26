@@ -1,0 +1,12 @@
+﻿1- aggiungere il controllo del cancellationToken ?? 
+
+2- aggiungere i metodi per popolare le tabelle accessorie dello aspnetuser
+
+3- aspnetuserroles popolare tabella molti-molti 
+
+4- metodi per il login ? autenticazione ? 
+
+5- una volta finito di popolare le tabelle, scrivere un servizio
+per inviare email all utente che si è registato per confermare email e numero di telefono 
+
+6- scrivere anche un metodo per autenticazione a due fattori ?? 
