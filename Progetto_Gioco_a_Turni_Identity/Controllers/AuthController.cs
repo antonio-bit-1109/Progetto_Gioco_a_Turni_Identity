@@ -56,7 +56,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
 
             if (esito.Succeeded)
             {
-                TempData["success"] = "utente creato con successo.";
+                TempData["success"] = "utente creato con successo. Riceverai una mail con un link per confermare il tuo account.";
                 return RedirectToAction("Login", "Auth");
             }
 

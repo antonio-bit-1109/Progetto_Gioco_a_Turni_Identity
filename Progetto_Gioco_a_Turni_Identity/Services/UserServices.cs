@@ -9,11 +9,15 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
     {
         private readonly UserRepository _userRepository;
         private readonly IPasswordHasher<IdentityUser> _passwordHasher;
+        private readonly IEmail _emailSender;
+        private string NomeUltimoUtenteCreato { get; set; }
 
-        public UserServices(UserRepository userRepository, IPasswordHasher<IdentityUser> passwordHasher)
+        public UserServices(UserRepository userRepository, IPasswordHasher<IdentityUser> passwordHasher, IEmail emailSender)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _emailSender = emailSender;
+            NomeUltimoUtenteCreato = string.Empty;
         }
 
         public async Task<IdentityResult> CreazioneUtente(RegisterModel datiUtenteRegistration)
@@ -63,6 +67,13 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
                     CancellationToken cancellationToken = cancellationTokenSource.Token;
                     // Implementazione del metodo dal repository 
                     IdentityResult esito = await _userRepository.CreateAsync(user, cancellationToken);
+
+                    if (esito.Succeeded)
+                    {
+                        NomeUltimoUtenteCreato = user.UserName;
+                        await SendEmailConfirmation(user.Email, NomeUltimoUtenteCreato);
+                    }
+
                     return esito;
                 }
             }
@@ -71,9 +82,21 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
                 Console.WriteLine($"errore durante la creazione utente :{ex.ToString()}");
                 return IdentityResult.Failed(new IdentityError { Description = "Errore durante la creazione utente." });
             }
+        }
 
-
-
+        // serve per confermare la mail conc cui un utente si è registrato.
+        public async Task<bool> ConfermaEMailDb()
+        {
+            try
+            {
+                bool esito = await _userRepository.confermaEMail();
+                return esito;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"errore durante il richiamo del db per impostare EMAILCONFIRMED su true :{ex.ToString()}");
+                return false;
+            }
         }
 
         private string ExtractUserName(string email)
@@ -114,5 +137,21 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
                 return "null";
             }
         }
+
+        private async Task<bool> SendEmailConfirmation(string emailDestinatario, string nomeUtenteCreato)
+        {
+            try
+            {
+                bool esito = await _emailSender.SendEmail_Confirmation(emailDestinatario, nomeUtenteCreato);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"errore durante l'invio dell'email di conferma dell utente appena creato. :{ex.ToString()}");
+                return false;
+            }
+        }
+
+
     }
 }

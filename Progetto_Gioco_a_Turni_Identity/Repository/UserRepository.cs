@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
+using Progetto_Gioco_a_Turni_Identity.Interfaces;
 using System.Data;
 
 namespace Progetto_Gioco_a_Turni_Identity.Repository
 {
 
 
-    public class UserRepository : IUserStore<IdentityUser>, IUserPasswordStore<IdentityUser>, IUserEmailStore<IdentityUser>
+    public class UserRepository : IUserStore<IdentityUser>, IUserPasswordStore<IdentityUser>, IUserEmailStore<IdentityUser>, ICustomUserRepository
     {
         private readonly string _connectionString;
 
@@ -251,7 +252,10 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
                         command.CommandType = CommandType.StoredProcedure;
                         command.CommandText = "POPULATE_ASPNETUSERCLAIMS";
 
+                        command.Parameters.Clear();
+
                         command.Parameters.Add("user_id_param", OracleDbType.NVarchar2).Value = user.Id;
+
 
                         if (i == 0)
                         {
@@ -335,24 +339,62 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
             }
         }
 
+        public async Task<bool> confermaEMail()
+        {
+            var (result, conn) = OpenConnectionDb();
+
+            if (!result) throw new Exception("errore connessione al db");
+
+            try
+            {
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "ASPNETUSER_CONFERMA_EMAIL";
+
+                    //inserisco parametro di output 
+                    var righe_inserite = new OracleParameter("righe_aggiornate", OracleDbType.Int32)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    await command.ExecuteNonQueryAsync();
+
+                    if (righe_inserite.Value != DBNull.Value)
+                    {
+                        int RigheInserite = ((OracleDecimal)righe_inserite.Value).ToInt32();
+
+                        if (RigheInserite == 1)
+                        {
+                            Console.WriteLine("campo EMAILCONFIRMED correttamente aggiornato.");
+                            return true;
+                        }
+                        else
+                        {
+                            throw new Exception("impossibile aggiornare il campo EMAILCONFIRMED della tabella ASPNETUSERS.");
+
+                        }
+                    }
+                    throw new Exception("valore null nel parametro di output della store procedure.");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore durante la chiamata al db per confermare la mail dell'utente: {ex.Message}.");
+                return false;
+            }
+            finally
+            {
+                ClosingConnection(conn);
+            }
+
+        }
 
         public Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
-            //var (result, conn) = OpenConnectionDb();
 
-            //try
-            //{
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Errore durante la creazione dell'utente {ex.Message}");
-            //}
-            //finally
-            //{
-            //    ClosingConnection(conn);
-            //}
         }
         public Task<IdentityUser?> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {

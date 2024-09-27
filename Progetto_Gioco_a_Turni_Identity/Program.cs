@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Progetto_Gioco_a_Turni_Identity.Interfaces;
+using Progetto_Gioco_a_Turni_Identity.Models;
 using Progetto_Gioco_a_Turni_Identity.Repository;
 using Progetto_Gioco_a_Turni_Identity.Services;
 
@@ -10,9 +11,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserStore<IdentityUser>, UserRepository>();
 builder.Services.AddScoped<IUserPasswordStore<IdentityUser>, UserRepository>();
 builder.Services.AddScoped<IUserEmailStore<IdentityUser>, UserRepository>();
+builder.Services.AddScoped<ICustomUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<UserRepository>(); // Aggiungi questa riga
 builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();
+builder.Services.AddScoped<IEmail, InvioEMailModel>();
 
 var app = builder.Build();
 
