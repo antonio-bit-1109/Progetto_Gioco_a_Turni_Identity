@@ -30,5 +30,10 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult ElencoGiochi()
+        {
+            return View();
+        }
     }
 }

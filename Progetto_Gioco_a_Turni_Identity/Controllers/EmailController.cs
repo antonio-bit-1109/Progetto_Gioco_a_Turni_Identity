@@ -23,15 +23,13 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
             {
                 return View();
             }
-
-            if (!esito)
+            else
             {
                 return RedirectToAction("ConfermaEmailRegistrazione_Fallito", "Email");
             }
-
         }
 
-        public async Task<IActionResult> ConfermaEmailRegistrazione_Fallito()
+        public IActionResult ConfermaEmailRegistrazione_Fallito()
         {
             return View();
         }

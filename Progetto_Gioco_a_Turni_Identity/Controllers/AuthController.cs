@@ -42,6 +42,24 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginModel loginData)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "errore in fase di login. Dati inseriti non validi o mancanti.";
+                return View("Login", loginData);
+            }
+            else
+            {
+
+                await _userServices.LoginUtente(loginData);
+                // logica per fare login e in teoria creare un token, salvarlo a db , inviarlo al frontend bla bla bla 
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
+        [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterModel createUser)
         {
             if (!ModelState.IsValid)

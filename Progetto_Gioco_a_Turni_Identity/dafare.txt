@@ -12,3 +12,7 @@
 per inviare email all utente che si è registato per confermare email e numero di telefono 
 
 6- scrivere anche un metodo per autenticazione a due fattori ?? 
+
+
+BONUS: sarebbe possibile creare una classe per la centralizzazione degli errori invece di mettere ovunque try catch ? 
+

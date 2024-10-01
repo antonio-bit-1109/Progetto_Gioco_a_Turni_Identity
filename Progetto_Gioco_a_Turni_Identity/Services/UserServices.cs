@@ -7,16 +7,21 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
 {
     public class UserServices : IUserServices
     {
-        private readonly UserRepository _userRepository;
+        private readonly UserRegisterRepository _userRegisterRepository;
+        private readonly IUserLoginRepository _userLoginRepository;
         private readonly IPasswordHasher<IdentityUser> _passwordHasher;
         private readonly IEmail _emailSender;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private string NomeUltimoUtenteCreato { get; set; }
 
-        public UserServices(UserRepository userRepository, IPasswordHasher<IdentityUser> passwordHasher, IEmail emailSender)
+
+        public UserServices(UserRegisterRepository userRepository, IUserLoginRepository IuserLoginRepository, IPasswordHasher<IdentityUser> passwordHasher, IEmail emailSender, SignInManager<IdentityUser> signInManager)
         {
-            _userRepository = userRepository;
+            _userRegisterRepository = userRepository;
+            _userLoginRepository = IuserLoginRepository;
             _passwordHasher = passwordHasher;
             _emailSender = emailSender;
+            _signInManager = signInManager;
             NomeUltimoUtenteCreato = string.Empty;
         }
 
@@ -66,7 +71,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
 
                     CancellationToken cancellationToken = cancellationTokenSource.Token;
                     // Implementazione del metodo dal repository 
-                    IdentityResult esito = await _userRepository.CreateAsync(user, cancellationToken);
+                    IdentityResult esito = await _userRegisterRepository.CreateAsync(user, cancellationToken);
 
                     if (esito.Succeeded)
                     {
@@ -89,7 +94,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
         {
             try
             {
-                bool esito = await _userRepository.confermaEMail();
+                bool esito = await _userRegisterRepository.confermaEMail();
                 return esito;
             }
             catch (Exception ex)
@@ -152,6 +157,10 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
             }
         }
 
-
+        public async Task<bool> LoginUtente(LoginModel loginData)
+        {
+            await _userLoginRepository.LoginUtente(loginData);
+            return true;
+        }
     }
 }
