@@ -4,14 +4,12 @@
 @{
 }
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <main>
-                Giochi Disponibli:
-         @*      inserire le partial view 2 riquadri con i giochi disponibili *@
-
-         <div>gioco 1</div>  <div>gioco 2</div>
-            </main>
+    <div class="row justify-content-center">
+        <div class="col-12">          
+        <h2 class="text-center">Giochi disponibili</h2>
         </div>
+
+        @await Html.PartialAsync("_memoryGame")
+        @await Html.PartialAsync("_giocoATurni")
     </div>
 </div>
