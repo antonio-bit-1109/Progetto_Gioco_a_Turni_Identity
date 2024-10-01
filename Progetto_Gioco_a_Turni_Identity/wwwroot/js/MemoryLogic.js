@@ -1,6 +1,8 @@
 ﻿// eseguo lo script al caricamento degli elementi html
 document.addEventListener("DOMContentLoaded", function () {
-    const audio = new Audio("/audios/nyan_cat.mp3");
+    const audioFiles = ["/audios/nyan_cat.mp3", "/audios/oYEah.mp3"]
+    let currentIndex = 0;
+    const audio = new Audio(audioFiles[currentIndex]);
     audio.play();
     // array contenente i due valori delle card da confrontare per verificare se sono la stessa card o no.
     const arrayTupla = [];
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageArray = CreateArrayImgs(arrImg);
     const arrayMischiato = shuffleArray(imageArray);
     InsertImagesIntoBoxes(arrayMischiato);
-    addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem);
+    addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem ,audio);
 });
 
 // function startClock() {
@@ -93,7 +95,7 @@ function InsertImagesIntoBoxes(arrayImgs) {
 }
 
 // aggiungo gli event listener ai .box contenenti le immagini
-function addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem) {
+function addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem , audio) {
     let allBoxes = document.querySelectorAll(".box");
     allBoxes.forEach((box, i) => {
         box.classList.add("pointer");
@@ -102,9 +104,18 @@ function addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem) {
         box.addEventListener("click", (e) => {
             console.log("click");
             DoStuff(e, box, arrayTupla, arrayTemp, arrDomElem);
+         /*   HaveYouWon(audio)*/
         });
     });
 }
+
+//function HaveYouWon() {
+//    const boxes = document.querySelectorAll(".box")
+
+//    if (boxes.querySelectorAll("img").contains("flip")) {
+//        audio.pause();
+//    }
+//}
 
 function DoStuff(e, box, arrayTupla, arrayTemp, arrDomElem) {
     const card = flippaCard(e);
