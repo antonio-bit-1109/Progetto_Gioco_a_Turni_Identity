@@ -114,12 +114,12 @@ function CreateArrayImgs(arrImg) {
         let imageElem2 = document.createElement("img");
 
         imageElem1.src = path;
-        imageElem1.alt = immagine${ i };
+        imageElem1.alt = `immagine${ i }`;
         imageElem1.classList.add("imgStyle");
         imageElem1.classList.add("invisible");
 
         imageElem2.src = path;
-        imageElem2.alt = immagine${ i };
+        imageElem2.alt = `immagine${ i }`;
         imageElem2.classList.add("imgStyle");
         imageElem2.classList.add("invisible");
 
