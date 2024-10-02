@@ -1,9 +1,14 @@
 ﻿// eseguo lo script al caricamento degli elementi html
 document.addEventListener("DOMContentLoaded", function () {
+
+    //array contenente i due file audio da riprodurre
     const audioFiles = ["/audios/nyan_cat.mp3", "/audios/oYEah.mp3"]
     let currentIndex = 0;
-    const audio = new Audio(audioFiles[currentIndex]);
-    audio.play();
+    let isFlipped = [];
+
+    //oggetto che conterrà i riferimento alle carte gemelle 
+    let twinCards = {}
+
     // array contenente i due valori delle card da confrontare per verificare se sono la stessa card o no.
     const arrayTupla = [];
     const arrayTemp = [];
@@ -26,31 +31,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // sequenza delle funzioni da chiamare.
     createModal();
-    // startClock();
+    startClock();
     const imageArray = CreateArrayImgs(arrImg);
     const arrayMischiato = shuffleArray(imageArray);
     InsertImagesIntoBoxes(arrayMischiato);
-    addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem ,audio);
+    addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem, isFlipped);
+    startMusic(audioFiles, currentIndex)
+   
 });
 
-// function startClock() {
-//     let clock = document.getElementById("clock");
-//     let id1;
-//     let sec = 0;
-//     let min = 0;
-//     if (sec >= 10) {
-//         clearInterval(id1);
-//         setInterval(() => {
-//             sec++;
-//             clock.innerHTML = `0${min}:${sec}`;
-//         }, 1000);
-//         return;
-//     }
-//     id1 = setInterval(() => {
-//         sec++;
-//         clock.innerHTML = `0${min}:0${sec}`;
-//     }, 1000);
-// }
+function YouWon() {
+    /*console.log("hai vinto"); */
+    const modal = document.getElementById("modal")
+    modal.innerHTML = "HAI VINTO A GRANDEE!"
+
+}
+
+function AllCArdFlipped(isFlipped) {
+    
+    const cards = document.querySelectorAll(".box");
+    let esito = true;
+    cards.forEach(card => {
+        if (!card.classList.contains("flip")) {
+            esito = false;
+        }
+    })
+
+    if (esito) {
+        YouWon();
+    }
+    console.log("non tutti i box sono girati")
+}
+
+function startMusic(audioFiles, currentIndex){
+
+    const audio = new Audio(audioFiles[currentIndex]);
+    audio.play();
+}
+
+function startClock() {
+    const clock = document.getElementById("clock");
+
+    incrementLogic(clock)
+}
+
+
+
+function incrementLogic(clock) {
+    let secDx = 0;
+    let secSn = 0;
+    let minDx = 0;
+    let minSn = 0;
+    setInterval(() => {
+        secDx++;
+        if (secDx > 9) {
+            secSn++;
+            secDx = 0;
+        }
+
+        if (secSn > 5) {
+            secSn = 0
+            secDx = 0
+            minDx++
+        }
+
+        if (minDx > 9) {
+            minSn = 5
+            minDx = 9
+            secSn = 5
+            secDx = 9
+        }
+
+        clock.innerHTML = `${minSn}${minDx}:${secSn}${secDx}`
+    }, 1000)
+}
 
 // creo un array di immagini
 function CreateArrayImgs(arrImg) {
@@ -95,27 +149,34 @@ function InsertImagesIntoBoxes(arrayImgs) {
 }
 
 // aggiungo gli event listener ai .box contenenti le immagini
-function addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem , audio) {
+function addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem, isFlipped) {
     let allBoxes = document.querySelectorAll(".box");
+
+    // Definisci handleClick una sola volta
+    function handleClick(e) {
+        const box = e.currentTarget; // Ottieni la carta corrente
+
+        // Controlla se la carta è già girata
+        if (box.classList.contains("flip")) {
+            console.log("Carta già girata, nessuna azione.");
+            return; // Se la carta è già girata, esci dalla funzione
+        }
+
+        console.log("click");
+        DoStuff(e, box, arrayTupla, arrayTemp, arrDomElem);
+        AllCArdFlipped(isFlipped);
+    }
+
+    // Ciclo su tutte le carte e aggiungo il listener
     allBoxes.forEach((box, i) => {
         box.classList.add("pointer");
 
-        // --- EVENTO CLICK DELLA CARD --- GESTISCI CORRETTAMENTE LA CRONOLOGIA DI EVENTI
-        box.addEventListener("click", (e) => {
-            console.log("click");
-            DoStuff(e, box, arrayTupla, arrayTemp, arrDomElem);
-         /*   HaveYouWon(audio)*/
-        });
+        // Aggiungi il listener senza ridefinire handleClick
+        box.addEventListener("click", handleClick);
     });
 }
 
-//function HaveYouWon() {
-//    const boxes = document.querySelectorAll(".box")
 
-//    if (boxes.querySelectorAll("img").contains("flip")) {
-//        audio.pause();
-//    }
-//}
 
 function DoStuff(e, box, arrayTupla, arrayTemp, arrDomElem) {
     const card = flippaCard(e);
@@ -161,6 +222,7 @@ function controlloEsito(arrayTupla, arrDomElem) {
         console.log("hai trovato le due card uguali.");
         showModal();
         unShowModal();
+      /*  removeListener(first , second)*/
         resetArray(arrayTupla);
         resetArray(arrDomElem);
         return;
@@ -196,6 +258,11 @@ function createModal() {
 
     document.body.appendChild(modal);
     console.log("modale creato");
+}
+
+
+function removeListener(first, second) {
+
 }
 
 function showModal() {

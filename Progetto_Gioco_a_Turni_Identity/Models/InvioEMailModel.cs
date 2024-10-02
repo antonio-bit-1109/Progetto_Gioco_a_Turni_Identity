@@ -15,7 +15,14 @@ namespace Progetto_Gioco_a_Turni_Identity.Models
 
         public InvioEMailModel()
         {
-            string? psw_email_MIttente = Environment.GetEnvironmentVariable("SECRET_KEY_EMAIL_SENDER");
+            string? psw_email_MIttente = Environment.GetEnvironmentVariable("SECRET_KEY_EMAIL_SENDER") ;
+
+            if (psw_email_MIttente == null)
+            {
+                Console.WriteLine("variabile d'ambiente che dovrebbe contenere password Email mittente è null. Imposto valore DEFAULT");
+                Console.WriteLine("impossibile inviare Email in queste condizioni.");
+                psw_email_MIttente = "ciaociao";
+            }
 
             if (psw_email_MIttente == null)
             {
