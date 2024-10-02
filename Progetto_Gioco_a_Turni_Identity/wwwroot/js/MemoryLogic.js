@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let isFlipped = [];
 
     //oggetto che conterrà i riferimento alle carte gemelle 
-    let twinCards = {}
+/*    let twinCards = {}*/
 
     // array contenente i due valori delle card da confrontare per verificare se sono la stessa card o no.
     const arrayTupla = [];
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     InsertImagesIntoBoxes(arrayMischiato);
     addListenerToBoxes(arrayTupla, arrayTemp, arrDomElem, isFlipped);
     startMusic(audioFiles, currentIndex)
-   
+
 });
 
 function YouWon() {
@@ -48,7 +48,7 @@ function YouWon() {
 }
 
 function AllCArdFlipped(isFlipped) {
-    
+
     const cards = document.querySelectorAll(".box");
     let esito = true;
     cards.forEach(card => {
@@ -63,7 +63,7 @@ function AllCArdFlipped(isFlipped) {
     console.log("non tutti i box sono girati")
 }
 
-function startMusic(audioFiles, currentIndex){
+function startMusic(audioFiles, currentIndex) {
 
     const audio = new Audio(audioFiles[currentIndex]);
     audio.play();
@@ -102,7 +102,7 @@ function incrementLogic(clock) {
             secDx = 9
         }
 
-        clock.innerHTML = `${minSn}${minDx}:${secSn}${secDx}`
+        clock.innerHTML = `${ minSn }${ minDx }:${ secSn }${ secDx }`
     }, 1000)
 }
 
@@ -114,12 +114,12 @@ function CreateArrayImgs(arrImg) {
         let imageElem2 = document.createElement("img");
 
         imageElem1.src = path;
-        imageElem1.alt = `immagine${i}`;
+        imageElem1.alt = immagine${ i };
         imageElem1.classList.add("imgStyle");
         imageElem1.classList.add("invisible");
 
         imageElem2.src = path;
-        imageElem2.alt = `immagine${i}`;
+        imageElem2.alt = immagine${ i };
         imageElem2.classList.add("imgStyle");
         imageElem2.classList.add("invisible");
 
@@ -222,7 +222,6 @@ function controlloEsito(arrayTupla, arrDomElem) {
         console.log("hai trovato le due card uguali.");
         showModal();
         unShowModal();
-      /*  removeListener(first , second)*/
         resetArray(arrayTupla);
         resetArray(arrDomElem);
         return;
@@ -261,9 +260,9 @@ function createModal() {
 }
 
 
-function removeListener(first, second) {
+//function removeListener(first, second) {
 
-}
+//}
 
 function showModal() {
     let modal = document.getElementById("modal");
