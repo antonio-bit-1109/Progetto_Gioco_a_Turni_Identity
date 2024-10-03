@@ -38,6 +38,7 @@ builder.Services.AddAuthentication(options =>
 {
 	options.DefaultScheme = "Identity.Application";
 })
+//nome cookie 
 .AddCookie("Identity.Application", options =>
 {
 	options.LoginPath = "/Auth/Login";
