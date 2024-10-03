@@ -16,3 +16,9 @@ per inviare email all utente che si è registato per confermare email e numero d
 
 BONUS: sarebbe possibile creare una classe per la centralizzazione degli errori invece di mettere ovunque try catch ? 
 
+
+
+CAPISCI PER BENE COME FUNZIONE IL SISTEMA DI AUTENTICAZIONE E COOKIE CHE HAI IMPLEMENTATO IN PROGRAM. 
+ORA IL COOKIE VIENE CORRETTAMENTE INVIATO AL FRONT 
+CREA UN ACTION PER GESTIRE IL LOGOUT 
+IMPLEMENTA ALCUNI DATI (NOME UTENTE) NELL INTERFACCIA VISIVA.

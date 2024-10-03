@@ -154,27 +154,26 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
 
 					if (righe_inserite.Value != DBNull.Value)
 					{
-						if (righe_inserite.Value != DBNull.Value)
+
+						int RigheInserite = ((OracleDecimal)righe_inserite.Value).ToInt32();
+
+						if (RigheInserite == 1)
 						{
-							int RigheInserite = ((OracleDecimal)righe_inserite.Value).ToInt32();
-
-							if (RigheInserite == 1)
-							{
-								Console.WriteLine("fin qui tutto bene");
-								await Populate_UserRoles_table(user, conn);
-								await Popolate_User_Claims_table(user, conn);
-								return await Task.FromResult(IdentityResult.Success);
-							}
-
-							if (RigheInserite == -1)
-							{
-								Console.WriteLine("utente non inserito.");
-								return await Task.FromResult(IdentityResult.Failed(new IdentityError
-								{
-									Description = "Email o cellualre gia presenti nel database."
-								}));
-							}
+							Console.WriteLine("fin qui tutto bene");
+							await Populate_UserRoles_table(user, conn);
+							await Popolate_User_Claims_table(user, conn);
+							return await Task.FromResult(IdentityResult.Success);
 						}
+
+						if (RigheInserite == -1)
+						{
+							Console.WriteLine("utente non inserito.");
+							return await Task.FromResult(IdentityResult.Failed(new IdentityError
+							{
+								Description = "Email o cellualre gia presenti nel database."
+							}));
+						}
+
 
 					}
 				}
@@ -426,12 +425,54 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
 
 		public Task<string> GetUserIdAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
+			try
+			{
+
+				if (user == null)
+				{
+					throw new ArgumentNullException("user");
+				}
+
+				// uso reflection per controllare che user sia correttamente formato.
+				if (user != null)
+				{
+					var type = user.GetType();
+					var properties = type.GetProperties();
+
+					foreach (var prop in properties)
+					{
+						var value = prop.GetValue(user);
+
+						if (value == null)
+						{
+							throw new NullReferenceException(" un value all'interno dello user Identity User è null.") { };
+						}
+
+
+					};
+					return Task.FromResult(user.Id);
+				}
+				throw new Exception($"lo user IdentityUser, all interno del login, è null.");
+
+			}
+			catch (Exception ex)
+			{
+				throw new Exception($"errore durante il reperimento id utente: {ex.Message}");
+			}
 		}
 
 		public Task<string?> GetUserNameAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+
+			try
+			{
+				return Task.FromResult(user.UserName);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception($"errore durante il reperimento nome utente: {ex.Message}");
+			}
 		}
 
 		public Task<bool> HasPasswordAsync(IdentityUser user, CancellationToken cancellationToken)
@@ -466,7 +507,15 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
 
 		public Task<string?> GetEmailAsync(IdentityUser user, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+
+			try
+			{
+				return Task.FromResult(user.Email);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception($"errore durante il reperimento email utente : {ex.Message}");
+			}
 		}
 
 		public Task<bool> GetEmailConfirmedAsync(IdentityUser user, CancellationToken cancellationToken)

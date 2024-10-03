@@ -32,6 +32,20 @@ builder.Services.AddScoped<ILookupNormalizer, UpperInvariantLookupNormalizer>();
 builder.Services.AddScoped<IdentityErrorDescriber>();
 builder.Services.AddScoped<IUserConfirmation<IdentityUser>, DefaultUserConfirmation<IdentityUser>>();
 
+// registro i servizi per poter effettuare autenticazione tramite cookie 
+
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultScheme = "Identity.Application";
+})
+.AddCookie("Identity.Application", options =>
+{
+	options.LoginPath = "/Auth/Login";
+	options.LogoutPath = "/Auth/Logout";
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+	options.SlidingExpiration = true;
+	options.Cookie.HttpOnly = true;
+});
 
 var app = builder.Build();
 
@@ -48,6 +62,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
