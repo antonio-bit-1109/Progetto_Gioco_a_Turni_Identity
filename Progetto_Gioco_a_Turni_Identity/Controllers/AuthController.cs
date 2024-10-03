@@ -78,13 +78,13 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            if (esito.Errors.Any())
+            else
             {
                 TempData["error"] = string.Join(", ", esito.Errors.Select(e => e.Description));
                 return View("Registrazione", createUser);
             }
 
-            return View("Registrazione", createUser);
+            //return View("Registrazione", createUser);
         }
     }
 }

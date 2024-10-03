@@ -29,18 +29,18 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
 
 
             // "user" tipo "identityUser" , bool "isPersistent" , [string autenticationmethod = null]
-            IdentityUser user = new IdentityUser();
+            //IdentityUser user = new IdentityUser();
 
-            await _SignInManager.SignInAsync(user, true, "ciao");
+            await _SignInManager.SignInAsync();
 
-            return true;
+            //return true;
         }
 
         //private async Task<IdentityUser> FindUserByEmail(LoginModel loginData)
         private async Task<string> FindUserByEmail(LoginModel loginData)
         {
             //TROVA LO USER DALLA MAIL 
-            return "ciao";
+            //return "ciao";
         }
     }
 }
