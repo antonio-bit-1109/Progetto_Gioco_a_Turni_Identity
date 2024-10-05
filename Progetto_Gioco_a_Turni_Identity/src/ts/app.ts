@@ -358,6 +358,7 @@ const DamoseLeBotte = (arraycombattenti: Guerriero[]) => {
     const btnWrapperImageVolumeOn = document.createElement("button");
     btnWrapperImageVolumeOn.classList.add("btn", "btn-transparent");
     const ImageVolumeUp = document.createElement("img");
+
     ImageVolumeUp.src = `${VolumeUp}`;
 
     btnWrapperImageVolumeOn.append(ImageVolumeUp);
@@ -372,6 +373,7 @@ const DamoseLeBotte = (arraycombattenti: Guerriero[]) => {
     const ImageVolumeMute = document.createElement("img");
 
     ImageVolumeMute.src = `${VolumeMute}`;
+
     btnWrapperImageVolumeOff.append(ImageVolumeMute);
     btnWrapperImageVolumeOff.addEventListener("click", () => {
         PlayMusic();
