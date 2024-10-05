@@ -110,3 +110,159 @@ html {
     text-align: center;
     padding-block-start: 3em;
 }
+
+
+/*----------------------------- gioco a turni DBZ -----------------------------------*/
+
+
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.stileh1 {
+    font-size: 3em;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: rgb(214, 231, 58);
+    text-align: center;
+}
+
+.stileh3 {
+    font-size: 2em;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: rgb(214, 231, 58);
+    text-align: center;
+}
+
+.appElementStyle {
+    min-height: 100vh;
+    background-image: url("/imgs/torneo.png");
+    background-size: cover;
+}
+
+.imgDimension {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0.8rem;
+    border: 1px solid black;
+}
+
+.imgDimension0 {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0.8rem;
+    border: 1px solid black;
+}
+
+.hoverAnimation {
+    transition: all 0.4s;
+}
+
+    .hoverAnimation:hover {
+        transition: all 0.4s;
+        box-shadow: 4px 5px 15px black;
+        scale: 1.05;
+    }
+
+.larghezza {
+    width: 300px;
+}
+
+.styleCustomModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999;
+    background-color: rgba(36, 36, 36, 0.89);
+    position: fixed;
+    top: 0;
+}
+
+.styleCustomModal_1 {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    height: 100vh;
+    z-index: 999;
+    background-color: rgba(36, 36, 36, 0.89);
+    position: fixed;
+    top: 0;
+}
+
+.positionMessaggioSconfitta {
+    font-size: 8em;
+    /* width: 50%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: slide-in-top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-top {
+    0% {
+        transform: translateY(-1000px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.btnStartMatch_Style {
+    border-radius: 30px;
+}
+
+.statusDivStyle {
+    width: 100%;
+    height: 49vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 3em;
+    color: greenyellow;
+    background-color: #5f5a5a8f;
+    margin-block-start: 20px;
+    overflow-y: scroll;
+}
+
+.w-relative {
+    width: 35%;
+}
+
+.hitPoint {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.h-40 {
+    height: 40%;
+}
+
+.styleDivTempoPassatoHit {
+    font-size: 20px;
+    margin-inline: 0.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #242424;
+}

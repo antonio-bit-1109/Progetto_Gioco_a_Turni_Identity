@@ -17,7 +17,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\ts\fetches\sfondoFetch.ts" />
+    <None Remove="src\ts\interfacesTS\interfaces.ts" />
     <None Remove="src\ts\app.ts" />
+    <None Remove="src\ts\canzone.ts" />
+    <None Remove="src\ts\combattente.ts" />
+    <None Remove="src\ts\cyborg.ts" />
+    <None Remove="src\ts\Frost_demon.ts" />
+    <None Remove="src\ts\Majin.ts" />
+    <None Remove="src\ts\pozione.ts" />
+    <None Remove="src\ts\Sayan.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +34,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="src\ts\fetches\sfondoFetch.ts" />
+    <TypeScriptCompile Include="src\ts\interfacesTS\interfaces.ts" />
     <TypeScriptCompile Include="src\ts\app.ts" />
+    <TypeScriptCompile Include="src\ts\canzone.ts" />
+    <TypeScriptCompile Include="src\ts\combattente.ts" />
+    <TypeScriptCompile Include="src\ts\cyborg.ts" />
+    <TypeScriptCompile Include="src\ts\Frost_demon.ts" />
+    <TypeScriptCompile Include="src\ts\Majin.ts" />
+    <TypeScriptCompile Include="src\ts\pozione.ts" />
+    <TypeScriptCompile Include="src\ts\Sayan.ts" />
   </ItemGroup>
 
 </Project>
