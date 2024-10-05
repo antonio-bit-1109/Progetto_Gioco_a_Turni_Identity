@@ -55,3 +55,10 @@ Controllo di validità degli utenti: Prima di eseguire operazioni di creazione o
 
 6. Supporto per Transazioni
 Implementazione di transazioni: Se stai inserendo dati in più tabelle (es. ASPNETUSERROLES e ASPNETUSERCLAIMS), potresti avvalerti delle transazioni del database per garantire che tutte le operazioni siano atomiche. In caso di fallimento di una singola operazione, la transazione può essere annullata, evitando inconsistenze nei dati.
+
+
+ricorda di entrare nella cartella di progetto prima di avviare il package.json  altrimenti non funziona.
+   ----> cd  C:\Users\Anton\source\repos\Progetto_Gioco_a_Turni_Identity\Progetto_Gioco_a_Turni_Identity <----
+
+NB -----------------------> TYPESCRIPT COMPILA IN JS SIA NELLA CARTELLA SELEZIONATA WWWROOT, SIA , PER QUALCHE STRANO MOTIVO, NELLA CARTELLA SRC/DIST 
+
