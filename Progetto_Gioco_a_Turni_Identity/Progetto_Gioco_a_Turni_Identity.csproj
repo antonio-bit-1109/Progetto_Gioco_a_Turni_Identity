@@ -7,12 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\ts\app.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="src\dist\" />
-    <Folder Include="src\ts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="src\ts\app.ts" />
   </ItemGroup>
 
 </Project>
