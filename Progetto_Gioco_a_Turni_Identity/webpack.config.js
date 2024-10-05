@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/ts/app.ts',  // Il file TypeScript principale
     output: {
         filename: 'bundle.js',   // Il nome del file JavaScript bundle
-        path: path.resolve(__dirname, 'src/dist')  // Cartella di output
+        path: path.resolve(__dirname, /*'src/dist'*/ 'wwwroot/js')  // Cartella di output
     },
     resolve: {
         extensions: ['.ts', '.js']  // Risolve file TypeScript e JavaScript

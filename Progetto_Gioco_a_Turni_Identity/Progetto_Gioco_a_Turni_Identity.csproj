@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\dist\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="src\ts\app.ts" />
   </ItemGroup>
 
