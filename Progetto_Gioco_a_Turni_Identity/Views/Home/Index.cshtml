@@ -2,9 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h2>Elenco Giochi</h2>
-    @Html.ActionLink("Vai alla pagina dei giochi", "ElencoGiochi", "Home")
+<div class="container">
+    <div class="row">
+		<div class="col-12">
+			<div class="d-flex justify-content-center align-items-center flex-column">
+				<h1 class="display-4">Welcome</h1>
+                <h2>Elenco Giochi</h2>
+			</div>
+        </div>
+        
 
+        <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                @Html.ActionLink("Vai alla pagina dei giochi", "ElencoGiochi", "Home")
+                @Html.ActionLink("Vai al Profilo", "ProfiloPersonale", "User")
+            </div>
+        </div>
+    </div>
 </div>

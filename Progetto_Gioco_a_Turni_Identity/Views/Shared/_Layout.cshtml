@@ -19,14 +19,26 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav w-100 flex justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Registrazione">Registrazione</a>
-                        </li>
-                    </ul>
+
+                    @if (!User.Identities.Any(u => u.IsAuthenticated))
+                    {
+                        <ul class="navbar-nav w-100 flex justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Registrazione">Registrazione</a>
+                            </li>
+                        </ul>
+                    } 
+                    else
+                    {
+                        <ul class="navbar-nav w-100 flex justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </nav>

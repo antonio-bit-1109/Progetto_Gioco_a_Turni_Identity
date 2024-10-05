@@ -21,6 +21,11 @@ body {
   margin-bottom: 60px;
 }
 
+.size{
+    padding:1em;
+    height: 10em;
+}
+
 .style1 {
     background-color:aquamarine
 }

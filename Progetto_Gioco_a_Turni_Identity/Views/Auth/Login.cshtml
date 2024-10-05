@@ -8,19 +8,14 @@
         
 
         <section class="mt-3">
-            @if (TempData["success"] != null)
-            {
-                <div class="alert alert-success">
-                    @TempData["success"]
-                </div>
-            }
 
-            @if (TempData["error"] != null)
-            {
-                <div class="alert alert-danger">
-                    @TempData["error"]
-                </div>
-            }
+            @{
+                renderAlert("success", "alert-success");
+                renderAlert("error", "alert-danger");
+                renderAlert("no_autenticated", "alert-info");
+                renderAlert("Logout_succ", "alert-success");      
+			}
+
         </section>
 
         <section>
@@ -46,3 +41,17 @@
         </section>
     </div> 
 </div>
+
+
+@functions {
+    private void renderAlert(string key , string alertClass)
+    {
+        if (TempData[key] != null)
+        {
+            <div class="alert @alertClass">
+                @TempData[key]
+            </div>
+        }
+    }
+
+}

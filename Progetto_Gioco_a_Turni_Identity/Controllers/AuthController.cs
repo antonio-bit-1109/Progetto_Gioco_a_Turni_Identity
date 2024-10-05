@@ -17,7 +17,16 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
         // GET: è il metodo (action) di base che viene chiamato se non ne viene specificato uno.
         public IActionResult Index()
         {
-            return View();
+            if (User != null && User.Identity != null)
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    TempData["no_autenticated"] = "Non risulti loggato. Effettua l'iscrizione o il login al sito.";
+                    return RedirectToAction("Login", "Auth");
+                }
+            }
+
+            return RedirectToAction("ElencoGiochi", "Home");
         }
         // 
         // GET: /AuthController/Welcome/ 
@@ -34,29 +43,6 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
         public IActionResult Registrazione()
         {
             return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> LoginUser(LoginModel loginData)
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["error"] = "errore in fase di login. Dati inseriti non validi o mancanti.";
-                return View("Login", loginData);
-            }
-            else
-            {
-
-                await _userServices.LoginUtente(loginData);
-                // logica per fare login e in teoria creare un token, salvarlo a db , inviarlo al frontend bla bla bla 
-                return RedirectToAction("Index", "Home");
-            }
-
         }
 
         [HttpPost]
@@ -85,6 +71,39 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
             }
 
             //return View("Registrazione", createUser);
+        }
+
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginModel loginData)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "errore in fase di login. Dati inseriti non validi o mancanti.";
+                return View("Login", loginData);
+            }
+            else
+            {
+
+                await _userServices.LoginUtente(loginData);
+                // logica per fare login e in teoria creare un token, salvarlo a db , inviarlo al frontend bla bla bla 
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
+
+        public async Task<IActionResult> Logout()
+        {
+            await _userServices.LogoutUser();
+
+            TempData["Logout_succ"] = "Logout effettuato con successo.";
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

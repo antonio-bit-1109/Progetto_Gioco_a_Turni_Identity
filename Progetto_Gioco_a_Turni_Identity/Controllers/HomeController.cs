@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Progetto_Gioco_a_Turni_Identity.Models;
 using System.Diagnostics;
 
 namespace Progetto_Gioco_a_Turni_Identity.Controllers
 {
+	[Authorize]
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -12,6 +14,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
 		{
 			_logger = logger;
 		}
+
 
 		public IActionResult Index()
 		{
@@ -39,6 +42,11 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
 		public IActionResult GiocoMemory()
 		{
 			//_logger.LogInformation("GiocoMemory action called.");
+			return View();
+		}
+
+		public IActionResult GiocoATurniDBZ()
+		{
 			return View();
 		}
 	}

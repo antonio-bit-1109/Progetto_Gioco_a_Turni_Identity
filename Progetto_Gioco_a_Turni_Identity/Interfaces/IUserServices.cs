@@ -8,6 +8,8 @@ namespace Progetto_Gioco_a_Turni_Identity.Interfaces
         Task<IdentityResult> CreazioneUtente(RegisterModel datiUtenteRegistration);
         Task<bool> ConfermaEMailDb();
         Task<bool> LoginUtente(LoginModel loginData);
+
+        Task<bool> LogoutUser();
         //string ExtractUserName(string email);
         //string HashingPassword(string password, string username);
     }

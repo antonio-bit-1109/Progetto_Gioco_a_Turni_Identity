@@ -36,16 +36,18 @@ builder.Services.AddScoped<IUserConfirmation<IdentityUser>, DefaultUserConfirmat
 
 builder.Services.AddAuthentication(options =>
 {
-	options.DefaultScheme = "Identity.Application";
+    options.DefaultScheme = "Identity.Application";
 })
 //nome cookie 
 .AddCookie("Identity.Application", options =>
 {
-	options.LoginPath = "/Auth/Login";
-	options.LogoutPath = "/Auth/Logout";
-	options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-	options.SlidingExpiration = true;
-	options.Cookie.HttpOnly = true;
+    // route a cui l'utente viene reinidirizzato se non è autorizzato
+    options.LoginPath = "/Auth/Login";
+    // route a cui viene reindirizzato l'utente se effettua il logout
+    options.LogoutPath = "/Auth/Logout";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.SlidingExpiration = true;
+    options.Cookie.HttpOnly = true;
 });
 
 var app = builder.Build();
@@ -53,9 +55,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -67,7 +69,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Auth}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Auth}/{action=Index}/{id?}");
 
 app.Run();
