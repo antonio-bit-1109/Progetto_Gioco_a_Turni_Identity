@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="dist\" />
+    <Folder Include="src\dist\" />
     <Folder Include="src\ts\" />
   </ItemGroup>
 
