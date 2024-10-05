@@ -16,7 +16,7 @@
   \***********************/
 /***/ (() => {
 
-eval("\nconst myValues = [\"3\", \"ciao\"];\nfor (let val of myValues) {\n    console.log(val);\n}\nconst par = document.getElementById(\"par\");\npar !== null ? par.style.color = \"red\" : null;\n\n\n//# sourceURL=webpack://progetto_gioco_a_turni_identity/./src/ts/app.ts?");
+eval("\nconst myValues = [\"3\", \"ciao\"];\nfor (let val of myValues) {\n    console.log(val);\n}\nconst par = document.getElementById(\"par\");\npar !== null ? par.style.color = \"blue\" : null;\nconst all = document.querySelectorAll(\"p\");\nall.forEach(p => {\n    console.log(p);\n});\nconsole.log(\"ciao\");\n\n\n//# sourceURL=webpack://progetto_gioco_a_turni_identity/./src/ts/app.ts?");
 
 /***/ })
 

@@ -7,5 +7,11 @@ for (let val of myValues) {
 }
 
 const par = document.getElementById("par");
+par !== null ? par.style.color = "blue" : null;
 
-par !== null ? par.style.color = "red" : null;
+const all = document.querySelectorAll("p");
+
+all.forEach(p => {
+    console.log(p);
+})
+console.log("ciao");
