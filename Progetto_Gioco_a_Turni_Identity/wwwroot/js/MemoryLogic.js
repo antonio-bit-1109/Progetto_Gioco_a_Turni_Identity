@@ -1,4 +1,7 @@
-﻿// eseguo lo script al caricamento degli elementi html
+﻿// dichiaro globale id del setInterval
+// per bloccarlo una volta vinto la partita. 
+let id;
+
 document.addEventListener("DOMContentLoaded", function () {
 
     //array contenente i due file audio da riprodurre
@@ -40,11 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-function YouWon() {
-    /*console.log("hai vinto"); */
-    const modal = document.getElementById("modal")
-    modal.innerHTML = "HAI VINTO A GRANDEE!"
+function startMusic(audioFiles, currentIndex) {
 
+    const audio = new Audio(audioFiles[currentIndex]);
+    audio.play();
 }
 
 function AllCArdFlipped(isFlipped) {
@@ -58,15 +60,20 @@ function AllCArdFlipped(isFlipped) {
     })
 
     if (esito) {
-        YouWon();
+       /* YouWon();*/
+        clearInterval(id);
+        showModalFinalTime()
     }
     console.log("non tutti i box sono girati")
 }
 
-function startMusic(audioFiles, currentIndex) {
-
-    const audio = new Audio(audioFiles[currentIndex]);
-    audio.play();
+function showModalFinalTime() {
+    const modalFinal = document.createElement("div");
+    modalFinal.classList.add("modalStyleFinal");
+    const clock = document.getElementById("clock")
+    modalFinal.innerHTML = `HAI VINTO COMPLIMENTI!<br> Hai completato la sfida in: ${clock.innerHTML}`;
+    document.body.appendChild(modalFinal); 
+    
 }
 
 function startClock() {
@@ -75,14 +82,13 @@ function startClock() {
     incrementLogic(clock)
 }
 
-
-
 function incrementLogic(clock) {
     let secDx = 0;
     let secSn = 0;
     let minDx = 0;
     let minSn = 0;
-    setInterval(() => {
+
+    id =  setInterval(() => {
         secDx++;
         if (secDx > 9) {
             secSn++;
@@ -102,7 +108,8 @@ function incrementLogic(clock) {
             secDx = 9
         }
 
-        clock.innerHTML = `${ minSn }${ minDx }:${ secSn }${ secDx }`
+        clock.innerHTML = `${minSn}${minDx}:${secSn}${secDx}`
+
     }, 1000)
 }
 
@@ -259,10 +266,6 @@ function createModal() {
     console.log("modale creato");
 }
 
-
-//function removeListener(first, second) {
-
-//}
 
 function showModal() {
     let modal = document.getElementById("modal");

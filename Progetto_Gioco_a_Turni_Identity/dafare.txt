@@ -62,3 +62,7 @@ ricorda di entrare nella cartella di progetto prima di avviare il package.json  
 
 NB -----------------------> TYPESCRIPT COMPILA IN JS SIA NELLA CARTELLA SELEZIONATA WWWROOT, SIA , PER QUALCHE STRANO MOTIVO, NELLA CARTELLA SRC/DIST 
 
+// quando vinci una partita del memory , far apparire lato front end il modal finale con il tempo impiegato e fai una fetch al server per salvare i dati della partita dell utente
+// implementare poi un area privata dell utente che , oltre ad avere dati sulla propria identità avrà anche resoconto con dati partite. 
+
+// quando vinci la partita implementa il cambio di musica.
