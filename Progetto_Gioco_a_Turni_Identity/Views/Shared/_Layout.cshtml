@@ -49,11 +49,17 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Progetto_Gioco_a_Turni_Identity - <a asp-area="" asp-controller="Auth" asp-action="Privacy">Privacy Policy</a>
-        </div>
-    </footer>
+@*     //se non sto all interno del gioco del memory allora mi mostra il footer altrimenti no
+ *@
+    @if (!(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "GiocoMemory") 
+    || !(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "GiocoATurniDBZ"))
+    {
+             <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - Progetto_Gioco_a_Turni_Identity - <a asp-area="" asp-controller="Auth" asp-action="Privacy">Privacy Policy</a>
+            </div>
+		    </footer>
+	}
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

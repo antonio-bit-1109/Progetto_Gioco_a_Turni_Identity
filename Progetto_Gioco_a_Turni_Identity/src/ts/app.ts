@@ -6,8 +6,8 @@ import { cyborg } from "./cyborg";
 import { pozione } from "./pozione";
 import { sfondoFetch } from "./fetches/sfondoFetch";
 import { Guerriero } from "./interfacesTS/interfaces";
-import VolumeUp from "../public/svgs/volume-up-fill.svg";
-import VolumeMute from "../public/svgs/volume-mute-fill.svg";
+//import VolumeUp from "../../wwwroot/svgs/upVol.svg";
+//import VolumeMute from "../../wwwroot/svgs/mute.svg";
 import { Majin } from "./Majin";
 
 const pozioneVita_sm = new pozione(20, "pozioneVita_sm");
@@ -359,7 +359,9 @@ const DamoseLeBotte = (arraycombattenti: Guerriero[]) => {
     btnWrapperImageVolumeOn.classList.add("btn", "btn-transparent");
     const ImageVolumeUp = document.createElement("img");
 
-    ImageVolumeUp.src = `${VolumeUp}`;
+
+/*    ImageVolumeUp.src = `${VolumeUp}`;*/
+
 
     btnWrapperImageVolumeOn.append(ImageVolumeUp);
     btnWrapperImageVolumeOn.addEventListener("click", () => {
@@ -372,7 +374,9 @@ const DamoseLeBotte = (arraycombattenti: Guerriero[]) => {
     btnWrapperImageVolumeOff.classList.add("btn", "btn-transparent");
     const ImageVolumeMute = document.createElement("img");
 
-    ImageVolumeMute.src = `${VolumeMute}`;
+
+/*    ImageVolumeMute.src = `${VolumeMute}`;*/
+
 
     btnWrapperImageVolumeOff.append(ImageVolumeMute);
     btnWrapperImageVolumeOff.addEventListener("click", () => {

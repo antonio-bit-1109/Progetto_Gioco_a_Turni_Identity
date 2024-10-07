@@ -68,11 +68,16 @@ function AllCArdFlipped(isFlipped) {
 }
 
 function showModalFinalTime() {
-    const modalFinal = document.createElement("div");
-    modalFinal.classList.add("modalStyleFinal");
-    const clock = document.getElementById("clock")
-    modalFinal.innerHTML = `HAI VINTO COMPLIMENTI!<br> Hai completato la sfida in: ${clock.innerHTML}`;
-    document.body.appendChild(modalFinal); 
+  
+    const modal = document.getElementById("modal");
+    modal.classList.remove("modalStyle");
+    modal.classList.add("modalStyleFinal");
+
+    if (!modal) {
+        console.log("non trovo il modale per mostrare il messaggio di vittoria."); 
+    }
+    modal.innerHTML = `HAI VINTO COMPLIMENTI!<br> Hai completato la sfida in: ${clock.innerHTML}`;
+    modal.classList.remove("d-none");
     
 }
 
@@ -227,8 +232,27 @@ function controlloEsito(arrayTupla, arrDomElem) {
     const [first, second] = arrayTupla;
     if (first === second) {
         console.log("hai trovato le due card uguali.");
-        showModal();
-        unShowModal();
+
+        const cards = document.querySelectorAll(".box");
+        let allFlipped = false;
+        cards.forEach(card => {
+            if (card.classList.contains("flip")) {
+                esito = true;
+            }
+
+            if (!card.classList.contains("flip")) {
+                esito = false;
+            }
+        })
+
+           if (allFlipped === false) {
+              showModal();
+              unShowModal();
+           }
+/*        if (!allFlipped) {*/
+
+/*        }*/
+
         resetArray(arrayTupla);
         resetArray(arrDomElem);
         return;
