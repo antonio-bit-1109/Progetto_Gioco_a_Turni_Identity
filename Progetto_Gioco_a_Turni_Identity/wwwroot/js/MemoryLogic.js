@@ -63,9 +63,20 @@ function AllCArdFlipped(isFlipped) {
        /* YouWon();*/
         clearInterval(id);
         showModalFinalTime()
+         sendVictory();
     }
     console.log("non tutti i box sono girati")
 }
+
+async function sendVictory() {
+    const protocol = window.location.protocol;
+    const host = window.location.hostname;
+    const port = window.location.port;
+
+    // invia dati partita vinta al server
+    const sendData = fetch(`${protocol}://${host}:${port}/User/DataPartiteUser`)
+}
+
 
 function showModalFinalTime() {
   

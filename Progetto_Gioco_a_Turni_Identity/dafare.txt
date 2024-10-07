@@ -66,3 +66,6 @@ NB -----------------------> TYPESCRIPT COMPILA IN JS SIA NELLA CARTELLA SELEZION
 // implementare poi un area privata dell utente che , oltre ad avere dati sulla propria identità avrà anche resoconto con dati partite. 
 
 // quando vinci la partita implementa il cambio di musica.
+
+
+// implementa un sistema per salvare a db i dati della partita vinta dall utente.

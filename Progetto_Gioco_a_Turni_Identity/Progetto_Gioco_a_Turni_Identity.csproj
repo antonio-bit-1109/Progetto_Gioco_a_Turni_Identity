@@ -17,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\ts\custom.d.ts" />
     <None Remove="src\ts\fetches\sfondoFetch.ts" />
     <None Remove="src\ts\interfacesTS\interfaces.ts" />
     <None Remove="src\ts\app.ts" />
@@ -34,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="src\ts\custom.d.ts" />
     <TypeScriptCompile Include="src\ts\fetches\sfondoFetch.ts" />
     <TypeScriptCompile Include="src\ts\interfacesTS\interfaces.ts" />
     <TypeScriptCompile Include="src\ts\app.ts" />

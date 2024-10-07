@@ -159,7 +159,7 @@ html {
 
 .appElementStyle {
     min-height: 100vh;
-    background-image: url("/imgs/torneo.png");
+    background-image: url("../imgs/torneo.png");
     background-size: cover;
 }
 

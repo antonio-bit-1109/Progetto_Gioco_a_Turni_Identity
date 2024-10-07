@@ -8,5 +8,11 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult DataPartiteUser()
+        {
+            // i dati della partita vinta su memory arrivano qui e li salvo nel db , dati che poi utnte può recuperare.
+        }
     }
 }

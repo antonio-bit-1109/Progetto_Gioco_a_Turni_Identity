@@ -15,14 +15,15 @@ module.exports = {
                 test: /\.ts$/,  // Cerca file .ts
                 use: 'ts-loader',  // Usa ts-loader per compilarli
                 exclude: /node_modules/
+            },
+            {
+                test: /\.(png|jpe?g|gif|webp|svg)$/i,  // Cerca file di immagini
+                type: 'asset/resource',  // Gestisce i file statici come risorse
+                generator: {
+                    filename: '[name][hash][ext]',  // Assicurati che le immagini siano salvate correttamente
+                    publicPath: 'https://localhost:7282/js/'  // Percorso pubblico per le immagini
+                }
             }
-            //{
-            //    test: /\.(png|jpg|gif|svg)$/, // Regola per gestire file di immagine
-            //    type: 'asset/resource', // Con Webpack 5, gestiamo i file statici come risorse
-            //    generator: {
-            //        filename: 'images/[name][ext]' // Cartella di output delle immagini
-            //    }
-            //}
         ]
     }
 };

@@ -49,10 +49,11 @@
         </main>
     </div>
 
-@*     //se non sto all interno del gioco del memory allora mi mostra il footer altrimenti no
+@*    
+    // se sono in visualizzazione di gioco memory o gioco a turni dbz allora il footer non si vede. 
  *@
-    @if (!(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "GiocoMemory") 
-    || !(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "GiocoATurniDBZ"))
+    @if (!(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "GiocoMemory" 
+    || ViewContext.RouteData.Values["action"]?.ToString() == "GiocoATurniDBZ"))
     {
              <footer class="border-top footer text-muted">
             <div class="container">

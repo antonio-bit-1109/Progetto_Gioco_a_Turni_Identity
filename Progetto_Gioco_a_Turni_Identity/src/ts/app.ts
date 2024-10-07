@@ -10,6 +10,10 @@ import { Guerriero } from "./interfacesTS/interfaces";
 //import VolumeMute from "../../wwwroot/svgs/mute.svg";
 import { Majin } from "./Majin";
 
+import gokuImg from "./assetsGiocoATurni/goku.webp";
+import gokuSuper from "./assetsGiocoATurni/goku_super_gif.webp";
+import gokuKame from "./assetsGiocoATurni/kamehameha_goku_gif.gif";
+
 const pozioneVita_sm = new pozione(20, "pozioneVita_sm");
 const pozioneVita_md = new pozione(50, "pozioneVita_md");
 const pozioneVita_lg = new pozione(80, "pozioneVita_lg");
@@ -55,9 +59,9 @@ const Goku = new Sayan(
     "calmo",
     "fronte",
     89,
-    "goku.webp", // goku base
-    "goku_super_gif.webp", //goku super sayan if
-    "kamehameha_goku_gif.gif" //kamehameha gif
+    gokuImg, // goku base
+    gokuSuper, //goku super sayan if
+    gokuKame//kamehameha gif
 );
 const Vegeta = new Sayan(
     "Vegeta",
