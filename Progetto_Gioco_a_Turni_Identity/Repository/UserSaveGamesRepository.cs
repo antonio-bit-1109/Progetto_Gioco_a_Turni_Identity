@@ -35,14 +35,14 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
                         command.Parameters.Add("TEMPO_COMPLETAMENTO_p", OracleDbType.NVarchar2).Value = data.tempoCompletamento;
                         command.Parameters.Add("DATA_ORA_COMPLETAMENTO_p", OracleDbType.NVarchar2).Value = Convert.ToDateTime(data.oraComplet);
 
-                        //inserisco parametro di output 
-                        //var cursorParam = new OracleParameter("user_cursor", OracleDbType.RefCursor)
-                        //{
-                        //    Direction = ParameterDirection.Output
-                        //};
+                        //inserisco parametro di output
+                        var righeInserite = new OracleParameter("righeInserite", OracleDbType.Int32)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
 
-                        //command.Parameters.Add(cursorParam);
-
+                        command.Parameters.Add(righeInserite);
+                        await command.ExecuteNonQueryAsync();
                         //using (var reader = await command.ExecuteReaderAsync())
                         //{
                         //    if (await reader.ReadAsync())
