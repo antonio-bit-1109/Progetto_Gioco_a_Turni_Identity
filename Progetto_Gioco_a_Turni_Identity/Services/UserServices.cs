@@ -2,6 +2,7 @@
 using Progetto_Gioco_a_Turni_Identity.Interfaces;
 using Progetto_Gioco_a_Turni_Identity.Models;
 using Progetto_Gioco_a_Turni_Identity.Repository;
+using System.Security.Claims;
 
 namespace Progetto_Gioco_a_Turni_Identity.Services
 {
@@ -14,8 +15,9 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
         private readonly SignInManager<IdentityUser> _signInManager;
         private string NomeUltimoUtenteCreato { get; set; }
 
-
-        public UserServices(UserRegisterRepository userRepository, IUserLoginRepository IuserLoginRepository, IPasswordHasher<IdentityUser> passwordHasher, IEmail emailSender, SignInManager<IdentityUser> signInManager)
+        private readonly IUserSaveGameRepository _userSaveGameRepository;
+        public UserServices(UserRegisterRepository userRepository, IUserLoginRepository IuserLoginRepository,
+            IPasswordHasher<IdentityUser> passwordHasher, IEmail emailSender, SignInManager<IdentityUser> signInManager, IUserSaveGameRepository userSaveGameRepository)
         {
             _userRegisterRepository = userRepository;
             _userLoginRepository = IuserLoginRepository;
@@ -23,6 +25,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
             _emailSender = emailSender;
             _signInManager = signInManager;
             NomeUltimoUtenteCreato = string.Empty;
+            _userSaveGameRepository = userSaveGameRepository;
         }
 
         public async Task<IdentityResult> CreazioneUtente(RegisterModel datiUtenteRegistration)
@@ -167,6 +170,13 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
         {
             await _signInManager.SignOutAsync();
             return true;
+        }
+
+        public async Task<bool> SaveDataGame(dataVictoryMemoryDTO data, ClaimsPrincipal user)
+        {
+
+
+            await _userSaveGameRepository.SaveGameIntoDb(data);
         }
     }
 }

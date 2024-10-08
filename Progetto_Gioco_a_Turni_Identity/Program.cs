@@ -31,7 +31,7 @@ builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaims
 builder.Services.AddScoped<ILookupNormalizer, UpperInvariantLookupNormalizer>();
 builder.Services.AddScoped<IdentityErrorDescriber>();
 builder.Services.AddScoped<IUserConfirmation<IdentityUser>, DefaultUserConfirmation<IdentityUser>>();
-
+builder.Services.AddScoped<IUserSaveGameRepository, UserSaveGamesRepository>();
 // registro i servizi per poter effettuare autenticazione tramite cookie 
 
 builder.Services.AddAuthentication(options =>

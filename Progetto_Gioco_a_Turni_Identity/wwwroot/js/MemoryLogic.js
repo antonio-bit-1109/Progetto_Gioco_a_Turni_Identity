@@ -63,7 +63,7 @@ function AllCArdFlipped(isFlipped) {
        /* YouWon();*/
         clearInterval(id);
         showModalFinalTime()
-         sendVictory();
+        sendVictory();
     }
     console.log("non tutti i box sono girati")
 }
@@ -73,14 +73,29 @@ async function sendVictory() {
     const host = window.location.hostname;
     const port = window.location.port;
 
+    let now = Date.now();
+    let tempoCompletamento = document.getElementById("clock").innerHTML;
     // invia dati partita vinta al server
-    const sendData = fetch(`${protocol}://${host}:${port}/User/DataPartiteUser`)
+    const sendData = fetch(`${protocol}//${host}:${port}/User/DataPartiteUser`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify( { tempoCompletamento: tempoCompletamento, oraComplet: now , game:"Memory" })
+    })
+    
 }
 
+//const protocol = window.location.protocol;
+//const host = window.location.hostname;
+//const port = window.location.port;
+
+//console.log(protocol,host,port)
 
 function showModalFinalTime() {
   
     const modal = document.getElementById("modal");
+    const clock = document.getElementById("clock");
     modal.classList.remove("modalStyle");
     modal.classList.add("modalStyleFinal");
 
@@ -89,7 +104,7 @@ function showModalFinalTime() {
     }
     modal.innerHTML = `HAI VINTO COMPLIMENTI!<br> Hai completato la sfida in: ${clock.innerHTML}`;
     modal.classList.remove("d-none");
-    
+
 }
 
 function startClock() {
