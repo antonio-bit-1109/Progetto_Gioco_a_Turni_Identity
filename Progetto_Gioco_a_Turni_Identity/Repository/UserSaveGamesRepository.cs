@@ -15,7 +15,7 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
             _connectionString = connectionString;
         }
 
-        public async Task<bool> SaveGameIntoDb(dataVictoryMemoryDTO data)
+        public async Task<bool> SaveGameIntoDb(dataVictoryMemoryDTO data, string idUtente)
         {
             try
             {
@@ -30,10 +30,10 @@ namespace Progetto_Gioco_a_Turni_Identity.Repository
 
 
                         command.Parameters.Add("id_p", OracleDbType.NVarchar2).Value = Guid.NewGuid();
-                        command.Parameters.Add("IDUTENTE_p", OracleDbType.NVarchar2).Value = loginData.Email;
-                        command.Parameters.Add("GIOCO_p", OracleDbType.NVarchar2).Value = loginData.Email;
-                        command.Parameters.Add("TEMPO_COMPLETAMENTO_p", OracleDbType.NVarchar2).Value = loginData.Email;
-                        command.Parameters.Add("DATA_ORA_COMPLETAMENTO_p", OracleDbType.NVarchar2).Value = loginData.Email;
+                        command.Parameters.Add("IDUTENTE_p", OracleDbType.NVarchar2).Value = idUtente;
+                        command.Parameters.Add("GIOCO_p", OracleDbType.NVarchar2).Value = data.game;
+                        command.Parameters.Add("TEMPO_COMPLETAMENTO_p", OracleDbType.NVarchar2).Value = data.tempoCompletamento;
+                        command.Parameters.Add("DATA_ORA_COMPLETAMENTO_p", OracleDbType.NVarchar2).Value = Convert.ToDateTime(data.oraComplet);
 
                         //inserisco parametro di output 
                         //var cursorParam = new OracleParameter("user_cursor", OracleDbType.RefCursor)

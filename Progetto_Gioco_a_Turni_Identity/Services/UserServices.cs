@@ -175,8 +175,11 @@ namespace Progetto_Gioco_a_Turni_Identity.Services
         public async Task<bool> SaveDataGame(dataVictoryMemoryDTO data, ClaimsPrincipal user)
         {
 
+            string? idUtente = user?.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("impossibile reperire idUtente attualmente loggato.");
+            bool esito = await _userSaveGameRepository.SaveGameIntoDb(data, idUtente);
+            return esito;
 
-            await _userSaveGameRepository.SaveGameIntoDb(data);
+
         }
     }
 }
