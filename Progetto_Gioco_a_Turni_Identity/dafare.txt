@@ -68,4 +68,4 @@ NB -----------------------> TYPESCRIPT COMPILA IN JS SIA NELLA CARTELLA SELEZION
 // quando vinci la partita implementa il cambio di musica.
 
 
-// implementa un sistema per salvare a db i dati della partita vinta dall utente.
+DONE - // implementa un sistema per salvare a db i dati della partita vinta dall utente.

@@ -20,15 +20,23 @@ namespace Progetto_Gioco_a_Turni_Identity.Controllers
         }
 
         [HttpPost]
-        public IActionResult DataPartiteUser([FromBody] dataVictoryMemoryDTO data)
+        public async Task<IActionResult> DataPartiteUser([FromBody] dataVictoryMemoryDTO data)
         {
             // i dati della partita vinta su memory arrivano qui e li salvo nel db , dati che poi utnte può recuperare.
             if (ModelState.IsValid)
             {
                 if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
                 {
-                    _userServices.SaveDataGame(data, User);
-                    return Ok();
+                    bool esito = await _userServices.SaveDataGame(data, User);
+
+                    if (esito)
+                    {
+                        return Ok();
+                    }
+
+                    return BadRequest(new { success = false, message = "Errore durante la registrazione della partita vinta." });
+
+
                 }
                 else
                 {

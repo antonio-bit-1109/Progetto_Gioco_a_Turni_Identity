@@ -1,9 +1,9 @@
 ﻿// dichiaro globale id del setInterval
 // per bloccarlo una volta vinto la partita. 
 let id;
-
+let idshowModal;
 document.addEventListener("DOMContentLoaded", function () {
-
+ /*    sendVictory()*/
     //array contenente i due file audio da riprodurre
     const audioFiles = ["/audios/nyan_cat.mp3", "/audios/oYEah.mp3"]
     let currentIndex = 0;
@@ -62,6 +62,7 @@ function AllCArdFlipped(isFlipped) {
     if (esito) {
        /* YouWon();*/
         clearInterval(id);
+        clearInterval(idshowModal);
         showModalFinalTime()
         sendVictory();
     }
@@ -69,21 +70,23 @@ function AllCArdFlipped(isFlipped) {
 }
 
 async function sendVictory() {
+    console.log("sono nella funzione")
     const protocol = window.location.protocol;
     const host = window.location.hostname;
     const port = window.location.port;
 
-    let now = Date.now();
+    let now = new Date().toISOString();
     let tempoCompletamento = document.getElementById("clock").innerHTML;
     // invia dati partita vinta al server
-    const sendData = fetch(`${protocol}//${host}:${port}/User/DataPartiteUser`, {
+    const sendData = fetch(`https://localhost:7282/User/DataPartiteUser`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify( { tempoCompletamento: tempoCompletamento, oraComplet: now , game:"Memory" })
     })
-    
+
+    console.log("sono in fodno alla funzione")
 }
 
 //const protocol = window.location.protocol;
@@ -93,7 +96,15 @@ async function sendVictory() {
 //console.log(protocol,host,port)
 
 function showModalFinalTime() {
-  
+
+    const button = document.createElement("button");
+    button.innerHTML = 'ricomincia';
+    button.classList.add("btn", "btn-info");
+    button.addEventListener("click", () => {
+        window.location.reload();
+    } )
+
+
     const modal = document.getElementById("modal");
     const clock = document.getElementById("clock");
     modal.classList.remove("modalStyle");
@@ -104,7 +115,7 @@ function showModalFinalTime() {
     }
     modal.innerHTML = `HAI VINTO COMPLIMENTI!<br> Hai completato la sfida in: ${clock.innerHTML}`;
     modal.classList.remove("d-none");
-
+    modal.appendChild(button);
 }
 
 function startClock() {
@@ -326,7 +337,7 @@ function showModal() {
 
 function unShowModal() {
     let modal = document.getElementById("modal");
-    setTimeout(() => {
+   idshowModal = setTimeout(() => {
         modal.classList.add("d-none");
     }, 1500);
 }
